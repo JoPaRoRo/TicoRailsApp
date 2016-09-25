@@ -1,17 +1,17 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Inicio</ion-title>
+    <button [navPush]="settingsPage" menuToggle end>
+      <ion-icon ios="ios-settings-outline" md="md-settings"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="home">
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>app/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Tico Rails App</ion-card-title>
+      <p>Una aplicacion de ticos para ticos, orientada al servicio del usuario de trenes en el pais</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -1,0 +1,28 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding scroll="false" class="login">
+
+  <form name="loginForm" class="center-form">
+    <h1>Tico Rails</h1>
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input [(ngModel)]="login.username" name="username" type="email" value="" required clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input [(ngModel)]="login.password" name="password" type="password" value="" required clearInput> </ion-input>
+    </ion-item>
+
+    <div padding>
+      <button ion-button type="submit" color="primary" (click)="login()" block>Iniciar Sesion</button>
+    </div>
+
+  </form>
+
+</ion-content>
