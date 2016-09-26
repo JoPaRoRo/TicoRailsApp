@@ -13,21 +13,19 @@
     </button>
   </ion-navbar>
 
+<ion-searchbar
+  [(ngModel)]="searchMap"
+  [showCancelButton]="shouldShowCancel"
+  placeholder="Buscar"
+  (change)="searchLocation()"
+>
+</ion-searchbar>
 
-  <ion-searchbar
-    [(ngModel)]="searchMap"
-    placeholder="Buscar estaciones de tren"
-    showCancelButton="true"
-    cancelButtonText="Cancelar"
-    (ionInput)="onInput($event)"
-    (ionCancel)="onCancel($event)">
-
-  </ion-searchbar>
 
   
 <button fab>
       <ion-icon name="train"></ion-icon>
-    </button>
+</button>
 
 </ion-header>
 

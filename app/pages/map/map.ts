@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef} from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {Geolocation} from 'ionic-native';
-import { SettingsPage} from '../settings/settings';
+import { Geolocation } from 'ionic-native';
+import { SettingsPage } from '../settings/settings';
 
 // Instalar esto para que funcione gps: ionic plugin add cordova-plugin-geolocation
 // Geolocation es asincrono
@@ -16,6 +16,7 @@ export class MapPage {
   public settingsPage : any;
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  searchMap; // Buscar estacion
 
   constructor(public navCtrl: NavController) {
     this.settingsPage = SettingsPage;
@@ -47,15 +48,19 @@ export class MapPage {
     }).then((position) => {
         this.addMarker({lat: position.coords.latitude, lng: position.coords.longitude});
     });
+
  
   }
 
   addMarker(...args){
+
+    var image = "assets/img/myLocation.png";
  
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: (args.length == 0) ? this.map.getCenter() : args[0]
+      position: (args.length == 0) ? this.map.getCenter() : args[0],
+      icon: image
     });
   
     let content = "<h4>Hola, somos Tico Rails!</h4>";          
@@ -74,6 +79,11 @@ export class MapPage {
       infoWindow.open(this.map, marker);
     });
  
+  }
+
+  searchLocation()
+  {
+    console.log("Buscar" + this.searchMap);
   }
 }
 
