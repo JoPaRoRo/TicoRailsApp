@@ -18,9 +18,11 @@
 
 <ion-content padding>
 
-  <ion-card>
 
+  <ion-card>
+    <a [navPush]="settingsPage" [navParams]="ruta" >
     <img src="assets/img/route1.jpg">
+    </a>
     <button fab fab-right fab-top>
       <ion-icon name="pin"></ion-icon>
     </button>
@@ -48,9 +50,11 @@
 
   </ion-card>
 
-  <ion-card>
 
+  <ion-card>
+    <a [navPush]="settingsPage" [navParams]="ruta" >
     <img src="assets/img/route2.jpg">
+    </a>
     <button fab fab-left fab-top>
       <ion-icon name="pin"></ion-icon>
     </button>
