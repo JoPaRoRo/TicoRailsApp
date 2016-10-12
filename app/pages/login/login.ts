@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TabsPage} from '../tabs/tabs';
+import { ToastController } from 'ionic-angular';
 
 /*
   Generated class for the LoginPage page.
@@ -11,14 +12,33 @@ import { TabsPage} from '../tabs/tabs';
 @Component({
   templateUrl: 'build/pages/login/login.html',
 })
-export class LoginPage {
+export class LoginPage{
 
-  constructor(private navCtrl: NavController) {
+public username ="";
+public password ="";
+
+  constructor(private navCtrl: NavController,public toastCtrl: ToastController) {
 
   }
 
   login(){
-    this.navCtrl.setRoot(TabsPage,null,{animate:true,animation:"transition"})
+  	if((this.username == "alocha16@gmail.com" && this.password == "12345") || (this .username=="gavs272@gmail.com" && this.password == "12345")){
+  			this.navCtrl.setRoot(TabsPage,null,{animate:true,animation:"transition"})
+  		}else{
+  			this.presentToast("Contraseña o Usuario Invalido");
+  		}
   }
+
+
+    presentToast(msj) {
+    let toast = this.toastCtrl.create({
+      message: msj,
+      duration: 3000
+    });
+    toast.present();
+  }
+
+
+
 
 }
