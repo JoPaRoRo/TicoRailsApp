@@ -12,19 +12,21 @@ declare var google;
   templateUrl: 'build/pages/map/map.html',
 })
 export class MapPage {
-
+  address;
   public settingsPage : any;
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   searchMap; // Buscar estacion
 
   constructor(public navCtrl: NavController) {
+    
     this.settingsPage = SettingsPage;
   }
 
   ionViewLoaded(){
     this.loadMap();
   }
+
 
   loadMap(){  // Escuela Informatica 9.970650, -84.129229
  
@@ -39,6 +41,7 @@ export class MapPage {
       }
  
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      
 
       return position;
  
@@ -48,7 +51,6 @@ export class MapPage {
     }).then((position) => {
         this.addMarker({lat: position.coords.latitude, lng: position.coords.longitude});
     });
-
  
   }
 
