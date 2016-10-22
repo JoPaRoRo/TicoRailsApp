@@ -17,4 +17,12 @@
 
 <ion-content padding>
 
+  <ion-list>
+    <ion-item *ngFor="let newsItem of newsList">
+      <h1> {{newsItem.title}} </h1>
+      <!--<div [innerHTML]=newsItem.text>
+      </div>-->
+    </ion-item>
+  </ion-list>
+
 </ion-content>
