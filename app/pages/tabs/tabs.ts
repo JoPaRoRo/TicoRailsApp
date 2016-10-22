@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HomePage } from '../home/home';
-import { SchedulePage } from '../schedule/schedule';
+import { NewsPage } from '../news/news';
 import { RoutePage } from '../route/route';
 import { MapPage } from '../map/map';
 
@@ -10,7 +10,7 @@ import { MapPage } from '../map/map';
 export class TabsPage {
 
   public homeTab: any;
-  public scheduleTab: any;
+  public newsTab: any;
   public routeTab: any;
   public mapTab: any;
 
@@ -18,7 +18,7 @@ export class TabsPage {
     // this tells the tabs component which Pages
     // should be each tab's root Page
     this.homeTab = HomePage;
-    this.scheduleTab = SchedulePage;
+    this.newsTab = NewsPage;
     this.routeTab = RoutePage;
     this.mapTab = MapPage
   }

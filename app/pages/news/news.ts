@@ -9,9 +9,9 @@ import { SettingsPage} from '../settings/settings';
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'build/pages/schedule/schedule.html',
+  templateUrl: 'build/pages/news/news.html',
 })
-export class SchedulePage {
+export class NewsPage {
   public settingsPage : any;
   constructor(private navCtrl: NavController) {
     this.settingsPage = SettingsPage;
