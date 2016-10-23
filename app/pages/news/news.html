@@ -18,11 +18,32 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item *ngFor="let newsItem of newsList">
-      <h1> {{newsItem.title}} </h1>
-      <!--<div [innerHTML]=newsItem.text>
-      </div>-->
-    </ion-item>
+    <ion-card *ngFor="let newsItem of newsList">
+      <!-- CONTENIDO NOTICIA-->
+        <ion-card-content>
+          <ion-card-title>
+            {{newsItem.title}}
+          </ion-card-title>
+          <div [innerHTML]=newsItem.text>
+          </div>
+        </ion-card-content>
+      <!-- Links y Compartir -->
+        <ion-row no-padding>
+          <ion-col>
+            <button ion-button clear small color="danger" icon-left>
+              <ion-icon name='link'></ion-icon>
+              Ver más
+            </button>
+          </ion-col>
+      
+          <ion-col text-right>
+            <button ion-button clear small color="danger" icon-left (click)="launch('https://www.thepolyglotdeveloper.com/2016/01/launch-websites-with-ionic-2-using-the-inappbrowser')">
+              <ion-icon name='share-alt'></ion-icon>
+              Compartir
+            </button>
+          </ion-col>
+        </ion-row>
+    </ion-card>
   </ion-list>
 
 </ion-content>
