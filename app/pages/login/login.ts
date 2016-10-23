@@ -18,15 +18,15 @@ public username ="";
 public password ="";
 
   constructor(private navCtrl: NavController,public toastCtrl: ToastController) {
-
+      
   }
 
   login(){
-  	if((this.username == "alocha16@gmail.com" && this.password == "12345") || (this .username=="gavs272@gmail.com" && this.password == "12345")){
+  //	if((this.username == "alocha16@gmail.com" && this.password == "12345") || (this .username=="gavs272@gmail.com" && this.password == "12345")){
   			this.navCtrl.setRoot(TabsPage,null,{animate:true,animation:"transition"})
-  		}else{
-  			this.presentToast("Contraseña o Usuario Invalido");
-  		}
+  		//}else{
+  			//this.presentToast("Contraseña o Usuario Invalido");
+  		//}
   }
 
 
