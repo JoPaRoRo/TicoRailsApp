@@ -19,24 +19,25 @@
 <ion-content padding>
 
 
-  <ion-card>
+  <ion-card *ngFor="let ruta of rutas">
     <a [navPush]="settingsPage" [navParams]="ruta" >
     <img src="assets/img/route1.jpg">
     </a>
     <button fab fab-right fab-top>
       <ion-icon name="pin"></ion-icon>
     </button>
-
     <ion-item>
       <ion-icon name="train" item-left large></ion-icon>
-      <h2>Estacion Tren Heredia</h2>
-      <p>Provincia de Heredia, Heredia</p>
+      <h2>{{ruta.nombre}}</h2>
     </ion-item>
-
+    <hr>
     <ion-item>
-      <ion-icon name="football" item-left large ></ion-icon>
-      <h2>Plaza de futbol. San Joaquín</h2>
-      <p>San Joaquin, Heredia, Flores</p>
+      <ion-icon name="compass" item-left large ></ion-icon>
+      <h2>Inicio</h2>
+      <p>{{ruta.inicio}}</p>
+      <hr>
+      <h2>Final</h2>
+      <p>{{ruta.final}}</p>
     </ion-item>
 
     <ion-item>
@@ -51,35 +52,7 @@
   </ion-card>
 
 
-  <ion-card>
-    <a [navPush]="settingsPage" [navParams]="ruta" >
-    <img src="assets/img/route2.jpg">
-    </a>
-    <button fab fab-left fab-top>
-      <ion-icon name="pin"></ion-icon>
-    </button>
 
-    <ion-item>
-      <ion-icon name="train" item-left large></ion-icon>
-      <h2>Estacion Tren Heredia</h2>
-      <p>Provincia de Heredia, Heredia</p>
-    </ion-item>
 
-    <ion-item>
-      <ion-icon name="book" item-left large ></ion-icon>
-      <h2>Tren Urbano, UCR</h2>
-      <p>UCR,  San José, San Pedro</p>
-    </ion-item>
-
-    <ion-item>
-      <span item-left>20 minutos</span>
-      <span item-left>(15.6 km)</span>
-      <button primary clear item-right>
-        <ion-icon name="navigate"></ion-icon>
-        Ruta Destino
-      </button>
-    </ion-item>
-
-  </ion-card>
 
 </ion-content>
