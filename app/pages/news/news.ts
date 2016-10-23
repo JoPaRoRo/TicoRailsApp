@@ -15,39 +15,34 @@ declare var window: any;
 })
 export class NewsPage {
 
-  public settingsPage : any;
-  newsList : any;
-  platform : any;
+    public settingsPage : any;
+    newsList : any;
+    platform : any;
 
-  constructor(private navCtrl: NavController, platform : Platform, public http: Http) {
-    this.settingsPage = SettingsPage;
-    this.platform = platform;
+    constructor(private navCtrl: NavController, platform : Platform, public http: Http) {
+        this.settingsPage = SettingsPage;
+        this.platform = platform;
 
-    //Loading news from TicoRails API
-    this.http.get('https://ticorailsapi.herokuapp.com/api/news').map(res => res.json()).subscribe(
-    data => {
-        this.newsList = data;
-    },
-    err => {
-        console.log("Error reading TicoRails News!");
+        //Loading news from TicoRails API
+        this.loadNews();
     }
-  );
-  }
 
-  doRefresh(refresher) {
-    console.log('Begin async operation to update news', refresher);
+    doRefresh(refresher) {
+        console.log('Begin async operation to update news', refresher);
 
-    setTimeout(() => {
-      console.log('Async operation has ended(news updated)');
-      refresher.complete();
-    }, 2000);
-  }
+        setTimeout(() => {
+            console.log('Async operation has ended(news updated)');
+            this.loadNews();
+            refresher.complete();
+        }, 2000);
+    }
 
-  launch(url) {
+    launch(url) {
+
         if (this.platform.is('cordova')) {
             this.platform.ready().then(() => {
               window.plugins.toast.show("READY", "short", "center");
-              InAppBrowser.open(url, "_system", "location=true");
+              InAppBrowser.open(url, "_system", "location=true").show();
             });
         }else{
             window.open(url,'_blank');
@@ -56,7 +51,7 @@ export class NewsPage {
 
     whatsappShare(url){
 
-        SocialSharing.shareViaWhatsApp("Enviado por TicoRails", null /*Image*/,  url /* url */)
+        SocialSharing.shareViaWhatsApp("Enviado por TicoRails --> ", null /*Image*/,  url /* url */)
         .then(()=>{
             console.log("Success");
         },
@@ -64,5 +59,18 @@ export class NewsPage {
             console.log("failed")
         })
     }
+
+    loadNews(){
+        //Loading news from TicoRails API
+        this.http.get('https://ticorailsapi.herokuapp.com/api/news').map(res => res.json()).subscribe(
+            data => {
+                this.newsList = data;
+            },
+            err => {
+                console.log("Error reading TicoRails News!");
+            }
+        );
+    }
+
 
 }
