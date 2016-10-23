@@ -17,6 +17,11 @@
 
 <ion-content padding>
 
+  <!-- Refrescar noticias -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
     <ion-card *ngFor="let newsItem of newsList">
       <!-- CONTENIDO NOTICIA-->
@@ -27,7 +32,7 @@
           <div [innerHTML]=newsItem.text>
           </div>
         </ion-card-content>
-      <!-- Links y Compartir -->
+        <!-- Links y Compartir -->
         <ion-row no-padding>
           <ion-col>
             <button ion-button clear small color="danger" icon-left (click)="launch(newsItem.source)">
@@ -42,7 +47,9 @@
               Compartir
             </button>
           </ion-col>
+        <!-- FIN Links y Compartir -->
         </ion-row>
+        <!-- FIN CONTENIDO NOTICIA-->
     </ion-card>
   </ion-list>
 

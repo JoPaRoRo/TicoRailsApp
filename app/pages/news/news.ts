@@ -34,6 +34,15 @@ export class NewsPage {
   );
   }
 
+  doRefresh(refresher) {
+    console.log('Begin async operation to update news', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended(news updated)');
+      refresher.complete();
+    }, 2000);
+  }
+
   launch(url) {
         if (this.platform.is('cordova')) {
             this.platform.ready().then(() => {
