@@ -30,14 +30,14 @@
       <!-- Links y Compartir -->
         <ion-row no-padding>
           <ion-col>
-            <button ion-button clear small color="danger" icon-left>
+            <button ion-button clear small color="danger" icon-left (click)="launch(newsItem.source)">
               <ion-icon name='link'></ion-icon>
               Ver más
             </button>
           </ion-col>
       
           <ion-col text-right>
-            <button ion-button clear small color="danger" icon-left (click)="launch('https://www.thepolyglotdeveloper.com/2016/01/launch-websites-with-ionic-2-using-the-inappbrowser')">
+            <button ion-button clear small color="danger" icon-left>
               <ion-icon name='share-alt'></ion-icon>
               Compartir
             </button>

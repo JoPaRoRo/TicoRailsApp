@@ -33,9 +33,13 @@ export class NewsPage {
 
   launch(url) {
         var cordova;
-        this.platform.ready().then(() => {
-            cordova.InAppBrowser.open(url, "_system", "location=true");
-        });
+        if (this.platform.is('cordova')) {
+            this.platform.ready().then(() => {
+              cordova.InAppBrowser.open(url, "_system", "location=true");
+            });
+        }else{
+            window.open(url,'_blank');
+        }
     }
 
 }
