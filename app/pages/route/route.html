@@ -1,18 +1,57 @@
 <!--
   Generated template for the RoutePage page.
-
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Route</ion-title>
+    <ion-title>Rutas</ion-title>
+    <button [navPush]="settingsPage" menuToggle end >
+      <ion-icon ios="ios-settings-outline" md="md-settings"></ion-icon>
+    </button>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+
+  <ion-card *ngFor="let ruta of rutas">
+    <a [navPush]="settingsPage" [navParams]="ruta" >
+    <img src="assets/img/route1.jpg">
+    </a>
+    <button fab fab-right fab-top>
+      <ion-icon name="pin"></ion-icon>
+    </button>
+    <ion-item>
+      <ion-icon name="train" item-left large></ion-icon>
+      <h2>{{ruta.nombre}}</h2>
+    </ion-item>
+    <hr>
+    <ion-item>
+      <ion-icon name="compass" item-left large ></ion-icon>
+      <h2>Inicio</h2>
+      <p>{{ruta.inicio}}</p>
+      <hr>
+      <h2>Final</h2>
+      <p>{{ruta.final}}</p>
+    </ion-item>
+
+    <ion-item>
+      <span item-left>10 minutos</span>
+      <span item-left>(4.6 km)</span>
+      <button primary clear item-right>
+        <ion-icon name="navigate"></ion-icon>
+        Ruta Destino
+      </button>
+    </ion-item>
+
+  </ion-card>
+
+
+
+
 
 </ion-content>
