@@ -17,11 +17,12 @@
 
 
 <ion-list>
+
   <ion-item *ngFor="let station of scheduleStations">
     <ion-thumbnail item-left large>
       <img src="assets/img/sub.png">
     </ion-thumbnail>
-    <h2>{{getStationById(station.destino).nombre}}</h2>
+    <a (click)="modalMap(station)"><h2>{{getStationById(station.destino).nombre}}</h2></a>
     <p>{{station.hora2}} pm</p>
   </ion-item>
 </ion-list>
