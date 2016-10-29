@@ -18,25 +18,26 @@
 <ion-content padding>
 
 
-  <ion-card *ngFor="let ruta of rutas">
-    <a [navPush]="settingsPage" [navParams]="ruta" >
+
+
+  <ion-card *ngFor="let train of trains">
+    
     <img src="assets/img/route1.jpg">
-    </a>
+   
     <button fab fab-right fab-top>
       <ion-icon name="pin"></ion-icon>
     </button>
     <ion-item>
       <ion-icon name="train" item-left large></ion-icon>
-      <h2>{{ruta.nombre}}</h2>
+      <h2>{{train.nombre}}</h2>
     </ion-item>
     <hr>
     <ion-item>
       <ion-icon name="compass" item-left large ></ion-icon>
-      <h2>Inicio</h2>
-      <p>{{ruta.inicio}}</p>
+      <div class="divRoute" (click)="goRoutes(route)" *ngFor="let route of train.rutas">
+      <h2>{{route.nombre}}</h2>
       <hr>
-      <h2>Final</h2>
-      <p>{{ruta.final}}</p>
+      </div>
     </ion-item>
 
     <ion-item>
@@ -47,6 +48,7 @@
         Ruta Destino
       </button>
     </ion-item>
+    
 
   </ion-card>
 

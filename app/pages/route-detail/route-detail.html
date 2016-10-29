@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>RouteDetail</ion-title>
+    <ion-title>Estaciones</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,4 +15,16 @@
 
 <ion-content padding>
 
+
+<ion-list>
+  <ion-item *ngFor="let station of scheduleStations">
+    <ion-thumbnail item-left large>
+      <img src="assets/img/sub.png">
+    </ion-thumbnail>
+    <h2>{{getStationById(station.destino).nombre}}</h2>
+    <p>{{station.hora2}} pm</p>
+  </ion-item>
+</ion-list>
+
 </ion-content>
+

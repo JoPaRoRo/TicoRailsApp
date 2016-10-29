@@ -7,12 +7,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>RouteSpecific</ion-title>
+    <ion-title>{{route.nombre}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+<ion-list>
+  <ion-item *ngFor="let schedule of route.horarios">
+    <ion-thumbnail item-left large>
+      <!-- <ion-icon name="time"></ion-icon>  -->
+      <img src="assets/img/clock.png">
+    </ion-thumbnail>
+
+    <h2>{{schedule.hora}} pm</h2>
+    <p>Partida: {{getStationById(schedule.inicio).nombre}}</p>
+    <p>Llegada: {{getStationById(schedule.final).nombre}}</p>
+
+    <button  (click)="goStationes(schedule.paradas)" clear item-right>Estaciones</button>
+  </ion-item>
+</ion-list>
+
 
 </ion-content>

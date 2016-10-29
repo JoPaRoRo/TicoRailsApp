@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SettingsPage} from '../settings/settings';
+import { RouteSpecificPage} from '../route-specific/route-specific';
 import { RutasService} from '../route/service';
 
 /*
@@ -14,29 +15,60 @@ import { RutasService} from '../route/service';
 })
 export class RoutePage implements OnInit {
   public settingsPage : any;
-  public rutas: any;
+  public RouteSpecificPage : any;
+  public trains: any;
+  public stations: any;
   public status: string;
   public errorMessage;
 
   constructor(private navCtrl: NavController,private _RutasService: RutasService) {
     this.settingsPage = SettingsPage;
+    this.RouteSpecificPage = RouteSpecificPage;
   }
 
    	ngOnInit() {
-   		this.getRutas();
+   		this.getTrains();
+   		this.getStations();
 	}
 
-
-	getRutas(){
-		this.rutas = this._RutasService.getRutas();
+	getTrains(){
+		this.trains = this._RutasService.getTrains();
 	}
 
+	getStations(){
+		this.stations = this._RutasService.getStations();
+	}
 
-/*		getRutas(){
-		this._RutasService.getRutas()
+	goRoutes(route){
+		this.navCtrl.push(RouteSpecificPage,{route:route});
+	}
+	
+/*		getStations(){
+		this._RutasService.getStations()
 									.subscribe(
 										result => {
-												this.rutas = result.data;
+												this.stations = result.data;
+												this.status = result.status;
+												if(this.status !== "success"){
+													alert("Error en el servidor");
+												}
+										},
+										error => {
+											this.errorMessage = <any>error;
+											if(this.errorMessage !== null){
+												console.log(this.errorMessage);
+												alert("Error en la petición");
+											}
+										}
+									);
+	}*/
+
+
+/*		getTrains(){
+		this._RutasService.getTrains()
+									.subscribe(
+										result => {
+												this.trains = result.data;
 												this.status = result.status;
 												if(this.status !== "success"){
 													alert("Error en el servidor");
