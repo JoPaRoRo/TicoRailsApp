@@ -36,12 +36,12 @@ export class MapPage {
  
       let mapOptions = {
         center: latLng,
+        myLocationButton: true,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
  
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      
 
       return position;
  
@@ -53,6 +53,7 @@ export class MapPage {
     });
  
   }
+
 
   addMarker(...args){
 
@@ -66,6 +67,23 @@ export class MapPage {
     });
   
     let content = "<h4>Hola, somos Tico Rails!</h4>";          
+  
+    this.addPopUpMessage(marker, content);
+ 
+  }
+
+  routeMarker(imgUrl, pos, cont){
+
+    var image = imgUrl;
+ 
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: pos,
+      icon: image
+    });
+  
+    let content = cont;          
   
     this.addPopUpMessage(marker, content);
  
@@ -86,6 +104,57 @@ export class MapPage {
   searchLocation()
   {
     console.log("Buscar" + this.searchMap);
+  }
+
+  nearestLocation(){
+    console.log("Nearest");
+
+    Geolocation.getCurrentPosition().then((position) => {
+
+      var rendererOptions = {
+        map: this.map,
+        suppressMarkers : true
+      }
+
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
+      let latLng = new google.maps.LatLng(9.868305, -84.067509);
+  
+      let mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+  
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      directionsDisplay.setMap(this.map);
+
+      this.calculateAndDisplayRoute(directionsService, directionsDisplay, position);
+      });
+    
+  }
+
+  calculateAndDisplayRoute(directionsService, directionsDisplay, myPos) {
+
+    var pointA = new google.maps.LatLng(myPos.coords.latitude, myPos.coords.longitude);
+    var pointB = new google.maps.LatLng(9.970650, -84.129229);
+
+    this.routeMarker("assets/img/myLocation.png", pointA, "<h4>Usted está aquí!</h4>");
+    this.routeMarker("assets/img/arrived.png", pointB, "<h4>Este es su destino!</h4>");
+
+    directionsService.route({
+      origin: pointA,
+      destination: pointB,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+    }, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
   }
 }
 
