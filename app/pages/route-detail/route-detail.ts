@@ -20,8 +20,11 @@ export class RouteDetailPage implements OnInit {
   public scheduleStations:any;
   public ModalMapPage : any;
 
+  errorMessage:any;
+
   constructor(private navCtrl: NavController,public params:NavParams,private _RutasService: RutasService,public modalCtrl: ModalController) {
   	this.scheduleStations = params.get("scheduleStations");
+    this.stations = params.get("stations");
     this.ModalMapPage = ModalMapPage;
   }
 
@@ -29,13 +32,9 @@ export class RouteDetailPage implements OnInit {
       this.getStations();
   }
 
-    getStations(){
-    this.stations = this._RutasService.getStations();
-  }
-
     getStationById(id){
     return this.stations.filter(function(s){
-            return s.id==id;})[0]; 
+            return s._id==id;})[0]; 
   }
 
    modalMap(station){
@@ -45,26 +44,38 @@ export class RouteDetailPage implements OnInit {
 
 
 
-
-
-  /*		getStations(){
+  		getStations(){
 		this._RutasService.getStations()
 									.subscribe(
 										result => {
-												this.stations = result.data;
-												this.status = result.status;
-												if(this.status !== "success"){
-													alert("Error en el servidor");
-												}
+												this.stations = result;
 										},
 										error => {
-											this.errorMessage = <any>error;
-											if(this.errorMessage !== null){
-												console.log(this.errorMessage);
+
 												alert("Error en la petición");
-											}
+											
 										}
 									);
-	}*/
+	}
+
+ timeFormat(timeP){
+
+  let time = timeP.toString();
+  let timeX;
+
+  console.log(time);
+  console.log(time.length);
+   if(time.length < 4){        
+      let hour = time.charAt(0);
+      let min = time.substr(1,2);
+      timeX = hour+":"+min; }
+      else{
+      let hour = time.substr(0,2);
+      let min = time.substr(2,3);
+      timeX = hour+":"+min; }
+
+      return timeX;
+      }
+
 
 }

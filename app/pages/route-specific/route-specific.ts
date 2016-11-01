@@ -21,25 +21,57 @@ export class RouteSpecificPage implements OnInit {
 
   constructor(private navCtrl: NavController,public params:NavParams,private _RutasService: RutasService) {
   	this.route = params.get("route");
+    this.stations = params.get("stations");
   	this.RouteDetailPage = RouteDetailPage;
   	
   }
 
   ngOnInit() {
-      this.getStations();
+    
   }
 
   getStations(){
-    this.stations = this._RutasService.getStations();
+    this._RutasService.getStations()
+                  .subscribe(
+                    result => {
+                      this.stations = result;
+                    },
+                    error => {
+                    
+                        alert("Error en la petición");
+                    }
+                  );
   }
 
    goStationes(schedule){
-  	this.navCtrl.push(RouteDetailPage,{scheduleStations:schedule});
+  	this.navCtrl.push(RouteDetailPage,{scheduleStations:schedule,stations:this.stations});
   }
  
   getStationById(id){
+
     return this.stations.filter(function(s){
-            return s.id==id;})[0]; 
+            return s._id==id;})[0]; 
   }
+
+
+ timeFormat(timeP){
+
+  let time = timeP.toString();
+  let timeX;
+
+  console.log(time);
+  console.log(time.length);
+   if(time.length < 4){        
+      let hour = time.charAt(0);
+      let min = time.substr(1,2);
+      timeX = hour+":"+min; }
+      else{
+      let hour = time.substr(0,2);
+      let min = time.substr(2,3);
+      timeX = hour+":"+min; }
+
+      return timeX;
+      }
+ 
 
 }
