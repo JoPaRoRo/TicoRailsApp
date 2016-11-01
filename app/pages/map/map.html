@@ -23,12 +23,12 @@
 
 <ion-item>
   <ion-label>Estación de tren </ion-label>
-  <ion-select [(ngModel)]="Estacion" (ionChange)="searchLocation(item)">
-    <ion-option *ngFor="let item of items" value="item" [checked]="false">{{item}}</ion-option>
+  <ion-select [(ngModel)]="estacion" (ionChange)="searchLocation(estacion)">
+    <ion-option *ngFor="let station of stations" value="{{station.station}}" [checked]="false">{{station.station}}</ion-option>
   </ion-select>
 </ion-item>
 
-<button fab (click)="nearestLocation()">
+<button fab (click)="takeMeTo()">
       <ion-icon name="train"></ion-icon>
 </button>
 
