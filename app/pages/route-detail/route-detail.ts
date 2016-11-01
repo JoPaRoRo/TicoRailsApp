@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
-import { NavController,NavParams } from 'ionic-angular';
+import { NavController,NavParams,ModalController } from 'ionic-angular';
 import { RutasService} from '../route/service';
+import { ModalMapPage} from '../modal-map/modal-map';
 
 
 /*
@@ -17,9 +18,11 @@ export class RouteDetailPage implements OnInit {
 
   public stations: any;
   public scheduleStations:any;
+  public ModalMapPage : any;
 
-  constructor(private navCtrl: NavController,public params:NavParams,private _RutasService: RutasService) {
+  constructor(private navCtrl: NavController,public params:NavParams,private _RutasService: RutasService,public modalCtrl: ModalController) {
   	this.scheduleStations = params.get("scheduleStations");
+    this.ModalMapPage = ModalMapPage;
   }
 
     ngOnInit() {
@@ -34,6 +37,13 @@ export class RouteDetailPage implements OnInit {
     return this.stations.filter(function(s){
             return s.id==id;})[0]; 
   }
+
+   modalMap(station){
+    let modal = this.modalCtrl.create(ModalMapPage,{station:station});
+    modal.present();
+  }
+
+
 
 
 

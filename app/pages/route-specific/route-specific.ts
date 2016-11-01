@@ -34,10 +34,7 @@ export class RouteSpecificPage implements OnInit {
   }
 
    goStationes(schedule){
-    console.log("sf");
-    console.log(schedule);
   	this.navCtrl.push(RouteDetailPage,{scheduleStations:schedule});
-
   }
  
   getStationById(id){
