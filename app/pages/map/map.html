@@ -13,17 +13,24 @@
     </button>
   </ion-navbar>
 
-<ion-searchbar
+<!--<ion-searchbar
   [(ngModel)]="searchMap"
   [showCancelButton]="shouldShowCancel"
   placeholder="Buscar"
   (change)="searchLocation()"
 >
-</ion-searchbar>
+</ion-searchbar>-->
 
-<button fab>
+<ion-item>
+  <ion-label>Estación de tren </ion-label>
+  <ion-select [(ngModel)]="Estacion" (ionChange)="searchLocation(item)">
+    <ion-option *ngFor="let item of items" value="item" [checked]="false">{{item}}</ion-option>
+  </ion-select>
+</ion-item>
+
+<button fab (click)="nearestLocation()">
       <ion-icon name="train"></ion-icon>
-  </button>
+</button>
 
 
 </ion-header>
