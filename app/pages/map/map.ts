@@ -18,6 +18,8 @@ export class MapPage {
   map: any;
   searchMap; // Buscar estacion
 
+  items = ["Est1", "Est2", "Est3"];
+
   constructor(public navCtrl: NavController) {
     
     this.settingsPage = SettingsPage;
@@ -101,9 +103,9 @@ export class MapPage {
  
   }
 
-  searchLocation()
+  searchLocation(itemSelected)
   {
-    console.log("Buscar" + this.searchMap);
+    console.log("Buscar " + itemSelected);
   }
 
   nearestLocation(){
