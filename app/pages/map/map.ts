@@ -154,7 +154,7 @@ export class MapPage {
 
      console.log("Buscar " + myStation[0].station);
      this.takeMeTo({lat: myStation[0].lat, lng: myStation[0].lng});
-
+     
   }
 
   takeMeTo(toPos){
@@ -184,9 +184,66 @@ export class MapPage {
       var pointA = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       var pointB = new google.maps.LatLng(toPos.lat, toPos.lng);
 
+      //console.log("DISTANCIA: " + this.distance(position.coords.latitude, position.coords.longitude,toPos.lat, toPos.lng));
+
+      let nearest = this.nearestStation(position.coords.latitude, position.coords.longitude);
+
+      console.log("NEAREST: " + nearest.station);
+
       this.calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
       });
     
+  }
+
+  takeMeToNearest(){
+    Geolocation.getCurrentPosition().then((position) => {
+
+      var rendererOptions = {
+        map: this.map,
+        suppressMarkers : true
+      }
+
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
+      let latLng = new google.maps.LatLng(9.868305, -84.067509);
+  
+      let mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+  
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      directionsDisplay.setMap(this.map);
+
+      let nearest = this.nearestStation(position.coords.latitude, position.coords.longitude);
+
+      console.log("NEAREST: " + nearest.station);
+
+      var pointA = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      var pointB = new google.maps.LatLng(nearest.lat, nearest.lng);
+
+      //console.log("DISTANCIA: " + this.distance(position.coords.latitude, position.coords.longitude,toPos.lat, toPos.lng));
+
+      this.calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
+      });
+  }
+
+  nearestStation(lat,lng){
+    let miDist = this.distance(lat,lng,this.stations[0].lat,this.stations[0].lng);
+    let myStation = this.stations[0];
+      for(var i = 0; i < this.stations.length ; i++){
+          let obj = this.distance(lat,lng,this.stations[i].lat,this.stations[i].lng);
+          if(miDist > obj)
+          {
+            miDist = obj;
+            myStation = this.stations[i];
+          }
+      }
+
+      //console.log("NEAREST: " + myStation.station);
+      return myStation;
   }
 
   calculateAndDisplayRoute(directionsService, directionsDisplay, fromPos, toPos) {
@@ -210,5 +267,17 @@ export class MapPage {
       }
     });
   }
+
+
+  distance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;    // Math.PI / 180
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+            c(lat1 * p) * c(lat2 * p) * 
+            (1 - c((lon2 - lon1) * p))/2;
+    //console.log("Inside: " + 12742 * Math.asin(Math.sqrt(a)));
+    return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+  }
+
 }
 
