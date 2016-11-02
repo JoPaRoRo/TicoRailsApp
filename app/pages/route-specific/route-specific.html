@@ -22,9 +22,9 @@
       <img src="assets/img/clock.png">
     </ion-thumbnail>
 
-    <h2>{{schedule.hora}} pm</h2>
-    <p>Partida: {{getStationById(schedule.inicio).nombre}}</p>
-    <p>Llegada: {{getStationById(schedule.final).nombre}}</p>
+    <h2>{{timeFormat(schedule.hora)}} pm</h2>
+    <p>Partida: {{getStationById(schedule.inicio).station}}</p>
+    <p>Llegada: {{getStationById(schedule.final).station}}</p>
 
     <button  (click)="goStationes(schedule.paradas)" clear item-right>Estaciones</button>
   </ion-item>

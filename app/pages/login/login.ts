@@ -30,11 +30,11 @@ ngOnInit(){
 }
 
   login(){
-  	if(this.validar(this.username,this.password)){
-  			this.navCtrl.setRoot(TabsPage,null,{animate:true,animation:"transition"})
-  		}else{
-  			this.presentToast("Contraseña o Usuario Invalido");
-  		}
+  	//if(this.validar(this.username,this.password)){
+  		this.navCtrl.setRoot(TabsPage,null,{animate:true,animation:"transition"})
+  		//}else{
+  			//this.presentToast("Contraseña o Usuario Invalido");
+  		//}
   }
 
   validar(u,p){

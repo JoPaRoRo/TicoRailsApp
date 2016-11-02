@@ -31,56 +31,41 @@ export class RoutePage implements OnInit {
    		this.getStations();
 	}
 
-	getTrains(){
-		this.trains = this._RutasService.getTrains();
-	}
-
-	getStations(){
-		this.stations = this._RutasService.getStations();
-	}
-
 	goRoutes(route){
-		this.navCtrl.push(RouteSpecificPage,{route:route});
+		this.navCtrl.push(RouteSpecificPage,{route:route,stations:this.stations});
 	}
 	
-/*		getStations(){
+	getStations(){
 		this._RutasService.getStations()
 									.subscribe(
 										result => {
-												this.stations = result.data;
-												this.status = result.status;
-												if(this.status !== "success"){
-													alert("Error en el servidor");
-												}
+											this.stations = result;
+									
 										},
 										error => {
-											this.errorMessage = <any>error;
-											if(this.errorMessage !== null){
-												console.log(this.errorMessage);
+										
 												alert("Error en la petición");
-											}
+											
 										}
 									);
-	}*/
+	}
 
 
-/*		getTrains(){
+		getTrains(){
 		this._RutasService.getTrains()
 									.subscribe(
 										result => {
-												this.trains = result.data;
-												this.status = result.status;
-												if(this.status !== "success"){
-													alert("Error en el servidor");
-												}
+												console.log(result);
+												this.trains = result;
+												//this.status = result.status;
+												//if(this.status !== "success"){
+												//	alert("Error en el servidor");
+												//}
 										},
 										error => {
-											this.errorMessage = <any>error;
-											if(this.errorMessage !== null){
-												console.log(this.errorMessage);
 												alert("Error en la petición");
 											}
-										}
+										
 									);
-	}*/
+	}
 }
