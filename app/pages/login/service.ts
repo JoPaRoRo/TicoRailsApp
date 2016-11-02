@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Response, Headers} from "@angular/http";
+import {Http, Response, Headers,URLSearchParams} from "@angular/http";
 import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
 
@@ -11,8 +11,11 @@ constructor(private _http: Http){
 	
 }
 
-	isValidUser(user:{user:String,pass:String}){
-		return this._http.get("http://ticorailsapi.herokuapp.com/api/user/"+user.user+"/"+user.pass)
-							.map(res => res.json());
+	isValidUser(user:{username:string,password:string}){
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('user', user.username);
+        params.set('pass', user.password);
+		return this._http.get("http://ticorailsapi.herokuapp.com/api/user",{ search:params})
+					.map(res => res.json());
 	}
 }
