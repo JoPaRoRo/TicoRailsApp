@@ -22,8 +22,8 @@
     <ion-thumbnail item-left large>
       <img src="assets/img/sub.png">
     </ion-thumbnail>
-    <!-- <a (click)="modalMap(station)"><h2>{{getStationById(station.destino).nombre}}</h2></a> -->
-    <a><h2>{{getStationById(station.destino).station}}</h2></a>
+    <a (click)="modalMap(station)"><h2>{{getStationById(station.destino).station}}</h2></a>
+    <!-- <a><h2>{{getStationById(station.destino).station}}</h2></a> -->
     <p>{{timeFormat(station.hora2)}}</p>
   </ion-item>
 </ion-list>

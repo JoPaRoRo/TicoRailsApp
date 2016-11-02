@@ -59,8 +59,7 @@ export class RouteSpecificPage implements OnInit {
   let time = timeP.toString();
   let timeX;
 
-  console.log(time);
-  console.log(time.length);
+
    if(time.length < 4){        
       let hour = time.charAt(0);
       let min = time.substr(1,2);

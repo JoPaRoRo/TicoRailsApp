@@ -1,6 +1,7 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef,OnInit} from '@angular/core';
 import { NavController,NavParams,ViewController } from 'ionic-angular';
 import { RutasService} from '../route/service';
+import 'rxjs/add/operator/map';
 
 /*
   Generated class for the ModalMapPage page.
@@ -17,9 +18,10 @@ declare var google;
 })
 
 export class ModalMapPage implements OnInit{
-
+  address;
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
   searchMap; // Buscar estacion
-
   public station: any;
   public stations: any;
   public long: any;
@@ -27,57 +29,78 @@ export class ModalMapPage implements OnInit{
 
   constructor(private navCtrl: NavController,public params:NavParams,public viewCtrl: ViewController,private _RutasService: RutasService) {
   	this.station = params.get("station");
+    this.stations = params.get("stations");
+    this.setLocation();
   }
 
-    ngOnInit() {
-      this.getStations();
-      this.setLocation();
+  ngOnInit() {
+  }
+
+  ionViewLoaded(){
+    this.loadMap();
   }
 
   setLocation(){
     let id = this.station.destino;
-    this.long = this.getStationById(id).longitud;
-    this.lat = this.getStationById(id).latitud;
-
+    this.long = this.getStationById(id).lng;
+    this.lat = this.getStationById(id).lat;
   }
 
-    getStations(){
-    this.stations = this._RutasService.getStations();
-    console.log(this.stations);
-  }
-
-    getStationById(id){
+  getStationById(id){
     return this.stations.filter(function(s){
-            return s.id==id;})[0]; 
+            return s._id==id;})[0]; 
   }
+
+    addPopUpMessage(marker, content){
+  
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+  
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+ 
+  }
+
+    routeMarker(imgUrl, pos, cont){
+
+    var image = imgUrl;
+ 
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: pos,
+      icon: image
+    });
+  
+    let content = cont;          
+  
+    this.addPopUpMessage(marker, content);
+ 
+  }
+
+    loadMap(){ 
+
+ 
+      let latLng = new google.maps.LatLng(this.lat,this.long);
+ 
+      let mapOptions = {
+        center: latLng,
+        myLocationButton: true,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+ 
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.routeMarker("assets/img/myLocation.png",{lat : this.lat, lng:this.long},"<h4>"+this.getStationById(this.station.destino).station+"</h4>");
+      //this.routeMarker("assets/img/myLocation.png",{lat : this.lat, lng:this.long},"<h4></h4>");
+  }
+
 
     dismiss() {
     this.viewCtrl.dismiss();
   }
-
-
-
-  /*    getStations(){
-    this._RutasService.getStations()
-                  .subscribe(
-                    result => {
-                        this.stations = result.data;
-                        this.status = result.status;
-                        if(this.status !== "success"){
-                          alert("Error en el servidor");
-                        }
-                    },
-                    error => {
-                      this.errorMessage = <any>error;
-                      if(this.errorMessage !== null){
-                        console.log(this.errorMessage);
-                        alert("Error en la petición");
-                      }
-                    }
-                  );
-  }*/
-
-
 
 
 }

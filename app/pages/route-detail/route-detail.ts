@@ -38,13 +38,14 @@ export class RouteDetailPage implements OnInit {
   }
 
    modalMap(station){
-    let modal = this.modalCtrl.create(ModalMapPage,{station:station});
+
+    let modal = this.modalCtrl.create(ModalMapPage,{station:station,stations:this.stations});
     modal.present();
   }
 
 
 
-  		getStations(){
+   getStations(){
 		this._RutasService.getStations()
 									.subscribe(
 										result => {
@@ -62,9 +63,6 @@ export class RouteDetailPage implements OnInit {
 
   let time = timeP.toString();
   let timeX;
-
-  console.log(time);
-  console.log(time.length);
    if(time.length < 4){        
       let hour = time.charAt(0);
       let min = time.substr(1,2);
