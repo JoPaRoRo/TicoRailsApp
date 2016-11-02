@@ -45,7 +45,7 @@ export class NewsPage {
         if (this.platform.is('cordova')) {
             this.platform.ready().then(() => {
                 //window.open(url, '_blank');
-                window.plugins.toast.show("KEEP TRYING", "short", "center");
+                //window.plugins.toast.show("KEEP TRYING", "short", "center");
                 //InAppBrowser.open(url, "_blank", "location=true");
                 window.location.href = url;
             });
