@@ -1,5 +1,5 @@
-import { Component,OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, LoadingController } from 'ionic-angular';
 import { SettingsPage} from '../settings/settings';
 import { RouteSpecificPage} from '../route-specific/route-specific';
 import { RutasService} from '../route/service';
@@ -10,62 +10,61 @@ import { RutasService} from '../route/service';
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'build/pages/route/route.html',
-  providers: [RutasService]
+	templateUrl: 'build/pages/route/route.html',
+	providers: [RutasService]
 })
 export class RoutePage implements OnInit {
-  public settingsPage : any;
-  public RouteSpecificPage : any;
-  public trains: any;
-  public stations: any;
-  public status: string;
-  public errorMessage;
+	public settingsPage: any;
+	public RouteSpecificPage: any;
+	public trains: any;
+	public stations: any;
+	public status: string;
+	public errorMessage;
+	public loading: any;
 
-  constructor(private navCtrl: NavController,private _RutasService: RutasService) {
-    this.settingsPage = SettingsPage;
-    this.RouteSpecificPage = RouteSpecificPage;
-  }
+	constructor(private navCtrl: NavController, private _RutasService: RutasService, private loadingController: LoadingController) {
+		this.settingsPage = SettingsPage;
+		this.RouteSpecificPage = RouteSpecificPage;
+		this.loading = loadingController.create({
+            content: "Cargando Trenes..."
+        });
+
+		console.log(this.loading);
+	}
 
    	ngOnInit() {
-   		this.getTrains();
-   		this.getStations();
+		this.getTrains();
+		this.getStations();
 	}
 
-	goRoutes(route){
-		this.navCtrl.push(RouteSpecificPage,{route:route,stations:this.stations});
+	goRoutes(route) {
+		this.navCtrl.push(RouteSpecificPage, { route: route, stations: this.stations });
 	}
-	
-	getStations(){
+
+	getStations() {
 		this._RutasService.getStations()
-									.subscribe(
-										result => {
-											this.stations = result;
-									
-										},
-										error => {
-										
-												alert("Error en la petición");
-											
-										}
-									);
+			.subscribe(
+			result => {
+				this.stations = result;
+
+			},
+			error => {
+
+				alert("Error en la petición");
+
+			}
+			);
 	}
 
 
-		getTrains(){
+	getTrains() {
+		this.loading.present();
 		this._RutasService.getTrains()
-									.subscribe(
-										result => {
-												console.log(result);
-												this.trains = result;
-												//this.status = result.status;
-												//if(this.status !== "success"){
-												//	alert("Error en el servidor");
-												//}
-										},
-										error => {
-												alert("Error en la petición");
-											}
-										
-									);
+			.subscribe(
+			result => { this.trains = result; },
+			error => { alert("Error en la petición"); },
+			() => { this.loading.dismiss() }
+
+			);
 	}
 }

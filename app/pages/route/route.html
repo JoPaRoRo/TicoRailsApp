@@ -17,9 +17,6 @@
 
 <ion-content padding>
 
-
-
-
   <ion-card *ngFor="let train of trains">
     
     <img src="assets/img/route1.jpg">
@@ -34,26 +31,18 @@
     <hr>
     <ion-item>
       <ion-icon name="compass" item-left large ></ion-icon>
-      <div class="divRoute" (click)="goRoutes(route)" *ngFor="let route of train.rutas">
-      <h2>{{route.nombre}}</h2>
+      <div (click)="goRoutes(route)" *ngFor="let route of train.rutas">
+      <button primary clear><h2>{{route.nombre}}</h2></button>
       <hr>
       </div>
     </ion-item>
 
     <ion-item>
-      <span item-left>10 minutos</span>
-      <span item-left>(4.6 km)</span>
       <button primary clear item-right>
         <ion-icon name="navigate"></ion-icon>
         Ruta Destino
       </button>
     </ion-item>
-    
-
   </ion-card>
-
-
-
-
 
 </ion-content>

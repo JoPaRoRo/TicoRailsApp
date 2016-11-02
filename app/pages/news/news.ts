@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { SettingsPage} from '../settings/settings';
 import { Http } from '@angular/http';
 import { Toast, InAppBrowser, SocialSharing } from 'ionic-native';
@@ -11,19 +11,22 @@ import 'rxjs/add/operator/map';
 declare var window: any;
 
 @Component({
-  templateUrl: 'build/pages/news/news.html',
+    templateUrl: 'build/pages/news/news.html',
 })
 export class NewsPage {
 
-    public settingsPage : any;
-    newsList : any;
-    platform : any;
+    public settingsPage: any;
+    private newsList: any;
+    private platform: any;
+    public loading : any;
 
-    constructor(private navCtrl: NavController, platform : Platform, public http: Http) {
+    constructor(private navCtrl: NavController, platform: Platform, public http: Http, public loadingController: LoadingController) {
         this.settingsPage = SettingsPage;
         this.platform = platform;
-
         //Loading news from TicoRails API
+        this.loading = loadingController.create({
+            content: "Cargando Noticias..."
+        });
         this.loadNews();
     }
 
@@ -41,35 +44,39 @@ export class NewsPage {
 
         if (this.platform.is('cordova')) {
             this.platform.ready().then(() => {
-              //window.open(url, '_blank');
-              window.plugins.toast.show("KEEP TRYING", "short", "center");
-              //InAppBrowser.open(url, "_blank", "location=true");
-              window.location.href = url;
+                //window.open(url, '_blank');
+                //window.plugins.toast.show("KEEP TRYING", "short", "center");
+                //InAppBrowser.open(url, "_blank", "location=true");
+                window.location.href = url;
             });
-        }else{
-            window.open(url,'_blank');
+        } else {
+            window.open(url, '_blank');
         }
     }
 
-    whatsappShare(url){
+    whatsappShare(url) {
 
-        SocialSharing.shareViaWhatsApp("Enviado por TicoRails --> ", null /*Image*/,  url /* url */)
-        .then(()=>{
-            console.log("Success");
-        },
-        ()=>{
-            console.log("failed")
-        })
+        SocialSharing.shareViaWhatsApp("Enviado por TicoRails --> ", null /*Image*/, url /* url */)
+            .then(() => {
+                console.log("Success");
+            },
+            () => {
+                console.log("failed")
+            })
     }
 
-    loadNews(){
+    loadNews() {
         //Loading news from TicoRails API
+        this.loading.present();
         this.http.get('https://ticorailsapi.herokuapp.com/api/news').map(res => res.json()).subscribe(
             data => {
                 this.newsList = data;
             },
             err => {
                 console.log("Error reading TicoRails News!");
+            },
+            () => {
+                this.loading.dismiss();
             }
         );
     }
