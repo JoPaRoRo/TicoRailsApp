@@ -19,6 +19,7 @@ export class RouteSpecificPage implements OnInit {
   public stations: any;
 	public route:any;
 
+
   constructor(private navCtrl: NavController,public params:NavParams,private _RutasService: RutasService) {
   	this.route = params.get("route");
     this.stations = params.get("stations");
@@ -58,20 +59,27 @@ export class RouteSpecificPage implements OnInit {
 
   let time = timeP.toString();
   let timeX;
-
-  console.log(time);
-  console.log(time.length);
-   if(time.length < 4){        
+   if(time.length < 4){ 
       let hour = time.charAt(0);
-      let min = time.substr(1,2);
-      timeX = hour+":"+min; }
-      else{
+      let min;
+     if(time.length === 1){
+       min = "00";
+      }else{       
+        if(time.length === 2){ 
+         hour = time.substr(0,1);       
+         min = "00";
+        }else{
+          min = time.substr(1,2);
+        }       
+      }  
+      timeX = hour+":"+min; 
+    }else{
       let hour = time.substr(0,2);
       let min = time.substr(2,3);
-      timeX = hour+":"+min; }
-
+      timeX = hour+":"+min; 
+    }
       return timeX;
-      }
+}
  
 
 }

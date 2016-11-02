@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TabsPage} from '../tabs/tabs';
 import { ToastController } from 'ionic-angular';
+import {LoginService} from '../login/service';
 
 /*
   Generated class for the LoginPage page.
@@ -11,30 +12,29 @@ import { ToastController } from 'ionic-angular';
 */
 @Component({
   templateUrl: 'build/pages/login/login.html',
+  providers: [LoginService]
 })
 export class LoginPage implements OnInit{
 
-public username ="";
-public password ="";
 public credentials = [];
 
-  constructor(private navCtrl: NavController,public toastCtrl: ToastController) {
+  public loginVM : any;
+  
+  constructor(private navCtrl: NavController,public toastCtrl: ToastController,public _loginService:LoginService) {
       this.credentials.push({"user":"alocha16@gmail.com","pass":"12345"});
       this.credentials.push({"user":"nanojp@gmail.com","pass":"12345"});
+      this.loginVM = {username: "", password: ""};
   }
 
 
 ngOnInit(){
- this.username ="";
- this.password ="";
+
 }
 
   login(){
-  	//if(this.validar(this.username,this.password)){
+      this._loginService.isValidUser(this.loginVM)
   		this.navCtrl.setRoot(TabsPage,null,{animate:true,animation:"transition"})
-  		//}else{
-  			//this.presentToast("Contraseña o Usuario Invalido");
-  		//}
+
   }
 
   validar(u,p){
@@ -47,7 +47,7 @@ ngOnInit(){
   reg(){
           let valid = true;
 
-
+/*
           if(this.password ==""){
             this.presentToast("Por favor igrese una contraseña");
             valid = false;
@@ -66,7 +66,7 @@ ngOnInit(){
           if(valid){
             this.credentials.push({"user":this.username,"pass":this.password});
             this.presentToast("Registro Correcto");
-          }
+          }*/
 
   }
 

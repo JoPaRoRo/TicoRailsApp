@@ -16,20 +16,18 @@ declare var window: any;
 export class NewsPage {
 
     public settingsPage: any;
-    newsList: any;
-    platform: any;
+    private newsList: any;
+    private platform: any;
+    public loading : any;
 
-    constructor(private navCtrl: NavController, platform: Platform, public http: Http, private loadingController: LoadingController) {
+    constructor(private navCtrl: NavController, platform: Platform, public http: Http, public loadingController: LoadingController) {
         this.settingsPage = SettingsPage;
         this.platform = platform;
-
         //Loading news from TicoRails API
-        let loader = loadingController.create({
-            content: "your message"
+        this.loading = loadingController.create({
+            content: "Cargando Noticias..."
         });
-        loader.present();
-
-        this.loadNews(loader);
+        this.loadNews();
     }
 
     doRefresh(refresher) {
@@ -67,8 +65,9 @@ export class NewsPage {
             })
     }
 
-    loadNews(loader) {
+    loadNews() {
         //Loading news from TicoRails API
+        this.loading.present();
         this.http.get('https://ticorailsapi.herokuapp.com/api/news').map(res => res.json()).subscribe(
             data => {
                 this.newsList = data;
@@ -77,7 +76,7 @@ export class NewsPage {
                 console.log("Error reading TicoRails News!");
             },
             () => {
-                loader.dismiss();
+                this.loading.dismiss();
             }
         );
     }
