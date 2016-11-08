@@ -1,6 +1,6 @@
 {
-  "name": "My Ionic App",
-  "short_name": "My Ionic App",
+  "name": "TicoRails App",
+  "short_name": "TicoRails App",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

@@ -1,0 +1,19 @@
+.settings {
+    .btn-relax{
+        position:absolute;
+        margin: auto;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background: #fff;
+        color: #000;
+        border: solid 1px #b2b2b2;
+        width: 90%;
+        box-shadow: none; 
+    }
+
+    .btn-relax:hover{
+        background: color($colors,favorite);
+        color: color($colors,secondary);
+    }
+}

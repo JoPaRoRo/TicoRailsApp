@@ -1,0 +1,20 @@
+.login {
+    background-color: color($colors,favorite); 
+    background-image: url("../../assets/img/rails.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+
+    .center-form{
+        width: 290px;
+        position:absolute;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+
+        h1{
+            text-align: center;
+            color: #fff;
+        }
+    }  
+}

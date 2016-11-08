@@ -1,0 +1,32 @@
+<!--
+  Generated template for the RouteDetailPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Estaciones</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+<ion-list>
+
+  <ion-item *ngFor="let station of scheduleStations">
+    <ion-thumbnail item-left large>
+      <img src="assets/img/sub.png">
+    </ion-thumbnail>
+    <a (click)="modalMap(station)">{{getStationById(station.destino).station}}</a>
+    <!-- <a><h2>{{getStationById(station.destino).station}}</h2></a> -->
+    <p>{{timeFormat(station.hora2)}}</p>
+  </ion-item>
+</ion-list>
+
+</ion-content>
+
