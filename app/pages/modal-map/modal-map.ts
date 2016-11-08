@@ -23,6 +23,7 @@ export class ModalMapPage implements OnInit{
   map: any;
   searchMap; // Buscar estacion
   public station: any;
+  public actualStation: any;
   public stations: any;
   public long: any;
   public lat: any;
@@ -30,7 +31,8 @@ export class ModalMapPage implements OnInit{
   constructor(private navCtrl: NavController,public params:NavParams,public viewCtrl: ViewController,private _RutasService: RutasService) {
   	this.station = params.get("station");
     this.stations = params.get("stations");
-    this.setLocation();
+    this.actualStation = this.getStation(this.station);
+    this.setLocation();   
   }
 
   ngOnInit() {
@@ -42,8 +44,12 @@ export class ModalMapPage implements OnInit{
 
   setLocation(){
     let id = this.station.destino;
-    this.long = this.getStationById(id).lng;
-    this.lat = this.getStationById(id).lat;
+    this.long = this.actualStation.lng;
+    this.lat = this.actualStation.lat;
+  }
+
+  getStation(station){
+    return this.getStationById(station.destino);
   }
 
   getStationById(id){

@@ -89,7 +89,6 @@ export class MapPage {
       this.stations.forEach(function(element){
           if(element.lat != null && element.lng != null){
             //let obj = new google.maps.LatLng(element.lat, element.lng);
-            console.log(element.lat +" , " + element.lng);
             //this.routeMarker("assets/img/station.png", {lat: 1, lng: 1}, "Hola");
             
           }
@@ -121,7 +120,6 @@ export class MapPage {
         this.addMarker({lat: position.coords.latitude, lng: position.coords.longitude});
         return this.loadMarkers();
     }).then((res) => {
-        //console.log(this.stations[0].station);
         this.drawingStations(res);
     });
  
@@ -152,13 +150,11 @@ export class MapPage {
                                           return element.station == itemSelected;
     });
 
-     console.log("Buscar " + myStation[0].station);
      this.takeMeTo({lat: myStation[0].lat, lng: myStation[0].lng});
      
   }
 
   takeMeTo(toPos){
-    console.log("Nearest");
 
     Geolocation.getCurrentPosition().then((position) => {
 
@@ -184,11 +180,9 @@ export class MapPage {
       var pointA = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       var pointB = new google.maps.LatLng(toPos.lat, toPos.lng);
 
-      //console.log("DISTANCIA: " + this.distance(position.coords.latitude, position.coords.longitude,toPos.lat, toPos.lng));
 
       let nearest = this.nearestStation(position.coords.latitude, position.coords.longitude);
 
-      console.log("NEAREST: " + nearest.station);
 
       this.calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
       });
@@ -219,12 +213,10 @@ export class MapPage {
 
       let nearest = this.nearestStation(position.coords.latitude, position.coords.longitude);
 
-      console.log("NEAREST: " + nearest.station);
 
       var pointA = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       var pointB = new google.maps.LatLng(nearest.lat, nearest.lng);
 
-      //console.log("DISTANCIA: " + this.distance(position.coords.latitude, position.coords.longitude,toPos.lat, toPos.lng));
 
       this.calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
       });
@@ -242,7 +234,6 @@ export class MapPage {
           }
       }
 
-      //console.log("NEAREST: " + myStation.station);
       return myStation;
   }
 
@@ -275,7 +266,6 @@ export class MapPage {
     var a = 0.5 - c((lat2 - lat1) * p)/2 + 
             c(lat1 * p) * c(lat2 * p) * 
             (1 - c((lon2 - lon1) * p))/2;
-    //console.log("Inside: " + 12742 * Math.asin(Math.sqrt(a)));
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
 

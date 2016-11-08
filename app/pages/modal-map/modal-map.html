@@ -7,7 +7,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Estación
+      {{actualStation.station}}
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -20,11 +20,6 @@
 
 
 <ion-content padding>
-
-
-<h1>Latitud:{{lat}}</h1>
-<h1>Longitud:{{long}}</h1>
-
 
 <div #map id="map"></div> 
 
